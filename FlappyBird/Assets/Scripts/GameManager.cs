@@ -1,24 +1,24 @@
+using System.Collections;
 using UnityEngine;
-
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject StartScreen;
-    private bool isStarted = false;
 
-    private void Awake()
+    [SerializeField] private GameObject piperPrefab;
+
+    [SerializeField] private float spaenRate = 1f;
+
+    private void Start()
     {
-        StartScreen.SetActive(true);
-        Time.timeScale = 0f;
+        StartCoroutine(SpawnPipe()) ;
     }
-
-    private void Update()
+    private IEnumerator SpawnPipe()
     {
-        if(Input.GetButtonDown("Fire1") && isStarted == false)
+        while (true)
         {
-            StartScreen.SetActive(false);
-            isStarted = true;
-            Time.timeScale = 1f;
+            yield return new  WaitForSeconds(spaenRate);
+            Instantiate(piperPrefab,transform.position, Quaternion.identity);   
         }
     }
+
 }
